@@ -1,0 +1,10 @@
+html
+	head
+		title Matching Users
+	body
+		p Found the following matching users:
+		ul
+			each match in matchList
+				li= match.firstName + " " + match.lastName
+		p Return to 
+			a(href="./") the main page

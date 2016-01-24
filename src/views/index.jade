@@ -1,0 +1,7 @@
+html
+	head
+		title Welcome to the User Information Web Server
+	body
+		form(name="searchForm", action="/matches", method="post")
+			input(type="text", name="searchTerm" placeholder="Username")
+			button(type="submit" name="submitSearch") Find user(s)

@@ -1,0 +1,12 @@
+html
+	head
+		title Add User
+	body
+		form(name="addUserForm", action="/adduser", method="post")
+			input(type="text" name="firstName" placeholder="First Name")
+			br
+			input(type="text" name="lastName" placeholder="Last Name")
+			br
+			input(type="text" name="emailAddress" placeholder="email@addr.ess")
+			br
+			button(type="submit" name="submitUser") Add user to json
