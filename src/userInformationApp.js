@@ -42,7 +42,7 @@ app.post('/matches', function(request, response){
 		if(err){throw err};
 		userList = JSON.parse(data);
 		for(i=0; i<userList.length; i++){
-			if(userList[i].firstName === request.body.searchTerm){
+			if(userList[i].firstName.includes(request.body.searchTerm)){
 				matchList.push(userList[i])
 			}
 		}
