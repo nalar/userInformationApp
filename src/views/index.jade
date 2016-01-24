@@ -1,7 +1,12 @@
 html
 	head
 		title Welcome to the User Information Web Server
+		script(src='https://code.jquery.com/jquery-2.2.0.min.js')
+		script(src="autoComplete.js")
+
 	body
 		form(name="searchForm", action="/matches", method="post")
-			input(type="text", name="searchTerm" placeholder="Username")
+			input(type="text", id="searchTerm", name="searchTerm" placeholder="Username" autocomplete="off")
 			button(type="submit" name="submitSearch") Find user(s)
+		p(id="searchResults") Results will appear on type
+			p(id="searchResults")

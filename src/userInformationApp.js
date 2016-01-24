@@ -7,11 +7,17 @@ var bodyParser = require('body-parser')
 // Start express and set settings
 var app 	= express();
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(__dirname+'/views'));
 app.set('views','./src/views');
 app.set('view engine','jade');
 
+
 app.get('/', function(request, response){
-	response.render('index');
+	fs.readFile('./src/views/users.json','utf8', function(err, data){
+		if(err){throw err};
+		userList = JSON.parse(data);
+		response.render('index', {userList: userList});
+	});
 });
 
 app.get('/matches', function(request, response){
@@ -42,12 +48,12 @@ app.post('/matches', function(request, response){
 		if(err){throw err};
 		userList = JSON.parse(data);
 		for(i=0; i<userList.length; i++){
-			if(userList[i].firstName.includes(request.body.searchTerm)){
+			if(request.query.searchTerm != "" && userList[i].firstName.toLowerCase().includes(request.query.searchTerm.toLowerCase())){
 				matchList.push(userList[i])
 			}
 		}
 		matchList = matchList.sort();
-		response.render('matches', {matchList: matchList});
+		response.send(matchList);
 	});
 });
 
