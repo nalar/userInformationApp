@@ -48,7 +48,7 @@ app.post('/matches', function(request, response){							// On post request for /
 		if(err){throw err};													// Error handler
 		userList = JSON.parse(data);										// Parse the JSON data from the file
 		for(i=0; i<userList.length; i++){									// For the length of the userList
-			if(request.query.searchTerm != "" && userList[i].firstName.toLowerCase().includes(request.query.searchTerm.toLowerCase())){		// See if the searchterm is contained in the users name
+			if(request.query.searchTerm != "" && userList[i].firstName.toLowerCase().includes(request.query.searchTerm.toLowerCase()) || request.query.searchTerm != "" && userList[i].lastName.toLowerCase().includes(request.query.searchTerm.toLowerCase())){		// See if the searchterm is contained in the users name
 				matchList.push(userList[i])									// Push the user to the list
 			}
 		}
