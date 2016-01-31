@@ -1,7 +1,10 @@
 html
 	head
-		title Welcome to the User Information Web Server
+		title Welcome to the user informatin web server
 	body
-		form(name="searchForm", action="/matches", method="post")
-			input(type="text", name="searchTerm" placeholder="Username")
-			button(type="submit" name="submitSearch") Find user(s)
+		p We currently have the following users:
+		ul
+			each user in userList
+				li= user.firstName + " " + user.lastName
+		p Search users 
+			a(href="./search") here

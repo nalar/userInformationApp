@@ -11,7 +11,17 @@ app.set('views','./src/views');
 app.set('view engine','jade');
 
 app.get('/', function(request, response){
-	response.render('index');
+	var userList = [];
+	fs.readFile('./src/views/users.json','utf8', function(err, data){
+		if(err){throw err};
+		userList = JSON.parse(data);
+		userList.reverse();
+		response.render('index', {userList: userList});
+	});
+});
+
+app.get('/search', function(request, response){
+	response.render('search');
 });
 
 app.get('/matches', function(request, response){
@@ -32,7 +42,7 @@ app.post('/adduser', function(request, response){
 		newUser = {firstName, lastName, emailAddress};
 		userList.push(newUser)
 		fs.writeFile('./src/views/users.json', JSON.stringify(userList));
-		response.send("Added user: \n" + firstName + " " + lastName)
+		response.redirect('/')
 	});
 });
 
@@ -42,7 +52,7 @@ app.post('/matches', function(request, response){
 		if(err){throw err};
 		userList = JSON.parse(data);
 		for(i=0; i<userList.length; i++){
-			if(userList[i].firstName.includes(request.body.searchTerm)){
+			if(userList[i].firstName.includes(request.body.searchTerm) || userList[i].lastName.includes(request.body.searchTerm) ){
 				matchList.push(userList[i])
 			}
 		}
